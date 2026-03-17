@@ -1,49 +1,146 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>SmartProperty AI</title>
-    <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            padding: 50px;
-            background: #f5f5f5;
-        }
-        .box {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            margin: auto;
-        }
-        button {
-            background: orange;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartProperty AI</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background: #F37021;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 500px;
+    margin: 40px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #F37021;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.result {
+    margin-top: 20px;
+    display: none;
+}
+
+.card {
+    background: #f9fafc;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.loading {
+    text-align: center;
+    margin-top: 15px;
+    display: none;
+}
+</style>
 </head>
+
 <body>
 
-<h1>SmartProperty AI</h1>
-<p>AI-powered Property Price Prediction</p>
+<div class="header">
+SmartProperty AI
+</div>
 
-<div class="box">
-    <p><b>Location:</b> Lagos</p>
-    <p><b>Property Type:</b> 3-Bedroom Apartment</p>
-    <p><b>Size:</b> 120 sqm</p>
+<div class="container">
 
-    <button onclick="predict()">Predict</button>
+<h3>Property Details</h3>
 
-    <h3 id="result"></h3>
+<select id="location">
+    <option>Lagos</option>
+    <option>Abuja</option>
+    <option>Port Harcourt</option>
+</select>
+
+<select id="type">
+    <option>1-Bedroom</option>
+    <option>2-Bedroom</option>
+    <option>3-Bedroom</option>
+</select>
+
+<input type="number" id="size" placeholder="Size (sqm)">
+
+<button onclick="predict()">Predict Price</button>
+
+<div class="loading" id="loading">
+Analyzing data...
+</div>
+
+<div class="result" id="result">
+
+<div class="card" id="price"></div>
+<div class="card" id="roi"></div>
+<div class="card" id="risk"></div>
+
+</div>
+
 </div>
 
 <script>
 function predict() {
-    document.getElementById("result").innerHTML =
-    "Estimated Price: ₦45,000,000 <br> ROI: 18% <br> Risk: Low";
+
+document.getElementById("loading").style.display = "block";
+document.getElementById("result").style.display = "none";
+
+setTimeout(() => {
+
+let size = document.getElementById("size").value;
+
+let price = 30000000 + (size * 100000);
+let roi = Math.floor(Math.random() * 10) + 10;
+
+let riskLevel = "Low";
+if (roi < 12) riskLevel = "High";
+else if (roi < 15) riskLevel = "Medium";
+
+document.getElementById("price").innerHTML = "Estimated Price: ₦" + price.toLocaleString();
+document.getElementById("roi").innerHTML = "ROI Potential: " + roi + "%";
+document.getElementById("risk").innerHTML = "Risk Level: " + riskLevel;
+
+document.getElementById("loading").style.display = "none";
+document.getElementById("result").style.display = "block";
+
+}, 1500);
+
 }
 </script>
 
